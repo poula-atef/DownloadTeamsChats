@@ -37,22 +37,32 @@ public class DownloadChatsService {
 
                 String fileName = "";
 
-                if (chat.optString("chatType") == null || chat.optJSONArray("members") == null)
+                if (chat.optString("chatType") == null) {
+                    System.out.println("There is no chatType for this chat");
                     continue;
+                }
+
+                if (chat.optJSONArray("members") == null) {
+                    System.out.println("There is no members for this chat");
+                    continue;
+                }
 
 
                 if (chat.optString("chatType").equals("oneOnOne")) {
                     fileName = "Chat-" + userName + " && ";
 
-                    if (chat.optJSONArray("members").length() < 2)
+                    if (chat.optJSONArray("members").length() < 2) {
+                        System.out.println("You are the only member in this chat");
                         continue;
+                    }
 
                     JSONObject firstUser = chat.optJSONArray("members").optJSONObject(0);
                     JSONObject secondUser = chat.optJSONArray("members").optJSONObject(1);
 
-                    if (firstUser.optString("displayName") == null || secondUser.optString("displayName") == null)
+                    if (firstUser.optString("displayName") == null || secondUser.optString("displayName") == null) {
+                        System.out.println("There is one of the two members doesn't have a username");
                         continue;
-
+                    }
                     fileName += (firstUser.optString("displayName").equals(userName) ?
                             secondUser.optString("displayName") :
                             firstUser.optString("displayName"));
@@ -88,10 +98,6 @@ public class DownloadChatsService {
 
     private void writeMessagesToJSONFile(String fileName, List<Object> pageMessages) {
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Teams Chats";
-
-        if (fileName.equals("Poula Atef Nashed && Alaa  Nabil")) {
-            int l = 0;
-        }
 
         try {
 

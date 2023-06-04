@@ -61,6 +61,7 @@ public class MicrosoftGraphService {
 
             }
 
+            System.out.println(microsoftGraphResponse.getMessagesCount() + " messages are retrieved successfully");
 
         } catch (Exception e) {
             System.out.println("Error Happened While Retrieving " + type + " :: " + e.getMessage());
