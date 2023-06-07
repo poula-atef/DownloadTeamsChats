@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mycode.downloadchats.entities.MicrosoftGraphResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,7 +99,9 @@ public class DownloadChatsService {
 
     private void writeMessagesToJSONFile(String fileName, List<Object> pageMessages) {
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop/Teams Chats";
-
+        if (fileName.contains("Eman")) {
+            int K = 0;
+        }
         try {
 
             JSONArray obj = new JSONArray();
@@ -119,7 +122,7 @@ public class DownloadChatsService {
 
                 String sender = message.optJSONObject("from").optJSONObject("user").optString("displayName");
 
-                String fileMessage = sender + " :: " + message.optJSONObject("body").optString("content");
+                String fileMessage = sender + " :: " + Jsoup.parse(message.optJSONObject("body").optString("content")).text();
 
                 obj.put(fileMessage);
             }
