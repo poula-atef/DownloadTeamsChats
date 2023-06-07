@@ -119,14 +119,7 @@ public class DownloadChatsService {
 
                 String sender = message.optJSONObject("from").optJSONObject("user").optString("displayName");
 
-                String fileMessage = sender + " :: ";
-
-                // adding regex to remove any HTML tags or unneeded spaces
-                fileMessage += message
-                        .optJSONObject("body")
-                        .optString("content")
-                        .replaceAll("<(.*)>|&nbsp;", "")
-                        .trim();
+                String fileMessage = sender + " :: " + message.optJSONObject("body").optString("content");
 
                 obj.put(fileMessage);
             }

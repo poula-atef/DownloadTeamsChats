@@ -11,4 +11,3 @@
 
 # Notes
 - the service shows the progress in the logs
-- token validity last for more than an hour
